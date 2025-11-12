@@ -39,6 +39,7 @@
 #include <ESP32Servo.h>
 
 Servo myservo;  // create servo object to control a servo
+Servo myservo2; 
 // 16 servo objects can be created on the ESP32
 
 int pos = 0;    // variable to store the servo position
@@ -50,6 +51,7 @@ int pos = 0;    // variable to store the servo position
 int servoPin = 17;
 #elif defined(CONFIG_IDF_TARGET_ESP32C3)
 int servoPin = D2;
+int servoPin2 = D1;
 #else
 int servoPin = 18;
 #endif
@@ -61,7 +63,9 @@ void setup() {
 	ESP32PWM::allocateTimer(2);
 	ESP32PWM::allocateTimer(3);
 	myservo.setPeriodHertz(50);    // standard 50 hz servo
+	myservo2.setPeriodHertz(50);    // standard 50 hz servo
 	myservo.attach(servoPin, 800, 2700); // attaches the servo on pin 18 to the servo object
+	myservo2.attach(servoPin2, 800, 2700); // attaches the servo on pin 18 to the servo object
 	// using default min/max of 1000us and 2000us
 	// different servos may require different min/max settings
 	// for an accurate 0 to 180 sweep
@@ -78,5 +82,10 @@ void loop() {
 		myservo.write(pos);    // tell servo to go to position in variable 'pos'
 		delay(10);             // waits 15ms for the servo to reach the position
 	}
+	myservo2.write(20);
+	delay(1000);
+	myservo2.write(170);
+	delay(1000);
+
 }
 
